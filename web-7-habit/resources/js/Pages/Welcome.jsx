@@ -1,315 +1,298 @@
-import { Link, Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { 
+    Sparkles, ArrowRight, PlayCircle, Sun, 
+    HeartHandshake, Activity, Carrot, BookOpen, 
+    Users, Moon, GraduationCap, Presentation, 
+    UserCheck, Bell, Menu, PieChart, CheckCircle2 
+} from 'lucide-react';
+import { Button } from "@/Components/ui/button";
 
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
+export default function Welcome() {
+    // State untuk efek Navbar saat di-scroll
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Data 7 Kebiasaan (Untuk loop grid)
+    const habits = [
+        { title: "Bangun Pagi", icon: <Sun className="w-6 h-6 text-yellow-500" />, color: "bg-yellow-50 text-yellow-600" },
+        { title: "Beribadah", icon: <HeartHandshake className="w-6 h-6 text-emerald-500" />, color: "bg-emerald-50 text-emerald-600" },
+        { title: "Olahraga", icon: <Activity className="w-6 h-6 text-red-500" />, color: "bg-red-50 text-red-600" },
+        { title: "Makan Sehat", icon: <Carrot className="w-6 h-6 text-orange-500" />, color: "bg-orange-50 text-orange-600" },
+        { title: "Gemar Belajar", icon: <BookOpen className="w-6 h-6 text-blue-500" />, color: "bg-blue-50 text-blue-600" },
+        { title: "Bermasyarakat", icon: <Users className="w-6 h-6 text-purple-500" />, color: "bg-purple-50 text-purple-600" },
+        { title: "Tidur Cepat", icon: <Moon className="w-6 h-6 text-indigo-500" />, color: "bg-indigo-50 text-indigo-600" },
+    ];
+
     return (
-        <>
-            <Head title="Welcome" />
-            <div className="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-                <div className="sm:fixed sm:top-0 sm:right-0 p-6 text-end">
-                    {auth.user ? (
-                        <Link
-                            href={route('dashboard')}
-                            className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                        >
-                            Dashboard
-                        </Link>
-                    ) : (
-                        <>
-                            <Link
-                                href={route('login')}
-                                className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                            >
-                                Log in
-                            </Link>
+        <div className="min-h-screen font-sans text-slate-600 bg-sky-50 selection:bg-sky-100 selection:text-sky-900 overflow-x-hidden">
+            <Head title="Jurnal Karakter Anak Hebat" />
 
-                            <Link
-                                href={route('register')}
-                                className="ms-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                            >
-                                Register
-                            </Link>
-                        </>
-                    )}
-                </div>
+            {/* --- BACKGROUND BLOBS --- */}
+            <div className="fixed top-0 left-0 w-96 h-96 bg-blue-300 rounded-full blur-3xl opacity-40 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+            <div className="fixed bottom-0 right-0 w-[500px] h-[500px] bg-sky-200 rounded-full blur-3xl opacity-40 translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
 
-                <div className="max-w-7xl mx-auto p-6 lg:p-8">
-                    <div className="flex justify-center">
-                        <svg
-                            viewBox="0 0 62 65"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-16 w-auto bg-gray-100 dark:bg-gray-900"
-                        >
-                            <path
-                                d="M61.8548 14.6253C61.8778 14.7102 61.8895 14.7978 61.8897 14.8858V28.5615C61.8898 28.737 61.8434 28.9095 61.7554 29.0614C61.6675 29.2132 61.5409 29.3392 61.3887 29.4265L49.9104 36.0351V49.1337C49.9104 49.4902 49.7209 49.8192 49.4118 49.9987L25.4519 63.7916C25.3971 63.8227 25.3372 63.8427 25.2774 63.8639C25.255 63.8714 25.2338 63.8851 25.2101 63.8913C25.0426 63.9354 24.8666 63.9354 24.6991 63.8913C24.6716 63.8838 24.6467 63.8689 24.6205 63.8589C24.5657 63.8389 24.5084 63.8215 24.456 63.7916L0.501061 49.9987C0.348882 49.9113 0.222437 49.7853 0.134469 49.6334C0.0465019 49.4816 0.000120578 49.3092 0 49.1337L0 8.10652C0 8.01678 0.0124642 7.92953 0.0348998 7.84477C0.0423783 7.8161 0.0598282 7.78993 0.0697995 7.76126C0.0884958 7.70891 0.105946 7.65531 0.133367 7.6067C0.152063 7.5743 0.179485 7.54812 0.20192 7.51821C0.230588 7.47832 0.256763 7.43719 0.290416 7.40229C0.319084 7.37362 0.356476 7.35243 0.388883 7.32751C0.425029 7.29759 0.457436 7.26518 0.498568 7.2415L12.4779 0.345059C12.6296 0.257786 12.8015 0.211853 12.9765 0.211853C13.1515 0.211853 13.3234 0.257786 13.475 0.345059L25.4531 7.2415H25.4556C25.4955 7.26643 25.5292 7.29759 25.5653 7.32626C25.5977 7.35119 25.6339 7.37362 25.6625 7.40104C25.6974 7.43719 25.7224 7.47832 25.7523 7.51821C25.7735 7.54812 25.8021 7.5743 25.8196 7.6067C25.8483 7.65656 25.8645 7.70891 25.8844 7.76126C25.8944 7.78993 25.9118 7.8161 25.9193 7.84602C25.9423 7.93096 25.954 8.01853 25.9542 8.10652V33.7317L35.9355 27.9844V14.8846C35.9355 14.7973 35.948 14.7088 35.9704 14.6253C35.9792 14.5954 35.9954 14.5692 36.0053 14.5405C36.0253 14.4882 36.0427 14.4346 36.0702 14.386C36.0888 14.3536 36.1163 14.3274 36.1375 14.2975C36.1674 14.2576 36.1923 14.2165 36.2272 14.1816C36.2559 14.1529 36.292 14.1317 36.3244 14.1068C36.3618 14.0769 36.3942 14.0445 36.4341 14.0208L48.4147 7.12434C48.5663 7.03694 48.7383 6.99094 48.9133 6.99094C49.0883 6.99094 49.2602 7.03694 49.4118 7.12434L61.3899 14.0208C61.4323 14.0457 61.4647 14.0769 61.5021 14.1055C61.5333 14.1305 61.5694 14.1529 61.5981 14.1803C61.633 14.2165 61.6579 14.2576 61.6878 14.2975C61.7103 14.3274 61.7377 14.3536 61.7551 14.386C61.7838 14.4346 61.8 14.4882 61.8199 14.5405C61.8312 14.5692 61.8474 14.5954 61.8548 14.6253ZM59.893 27.9844V16.6121L55.7013 19.0252L49.9104 22.3593V33.7317L59.8942 27.9844H59.893ZM47.9149 48.5566V37.1768L42.2187 40.4299L25.953 49.7133V61.2003L47.9149 48.5566ZM1.99677 9.83281V48.5566L23.9562 61.199V49.7145L12.4841 43.2219L12.4804 43.2194L12.4754 43.2169C12.4368 43.1945 12.4044 43.1621 12.3682 43.1347C12.3371 43.1097 12.3009 43.0898 12.2735 43.0624L12.271 43.0586C12.2386 43.0275 12.2162 42.9888 12.1887 42.9539C12.1638 42.9203 12.1339 42.8916 12.114 42.8567L12.1127 42.853C12.0903 42.8156 12.0766 42.7707 12.0604 42.7283C12.0442 42.6909 12.023 42.656 12.013 42.6161C12.0005 42.5688 11.998 42.5177 11.9931 42.4691C11.9881 42.4317 11.9781 42.3943 11.9781 42.3569V15.5801L6.18848 12.2446L1.99677 9.83281ZM12.9777 2.36177L2.99764 8.10652L12.9752 13.8513L22.9541 8.10527L12.9752 2.36177H12.9777ZM18.1678 38.2138L23.9574 34.8809V9.83281L19.7657 12.2459L13.9749 15.5801V40.6281L18.1678 38.2138ZM48.9133 9.14105L38.9344 14.8858L48.9133 20.6305L58.8909 14.8846L48.9133 9.14105ZM47.9149 22.3593L42.124 19.0252L37.9323 16.6121V27.9844L43.7219 31.3174L47.9149 33.7317V22.3593ZM24.9533 47.987L39.59 39.631L46.9065 35.4555L36.9352 29.7145L25.4544 36.3242L14.9907 42.3482L24.9533 47.987Z"
-                                fill="#FF2D20"
-                            />
-                        </svg>
+            {/* --- NAVBAR --- */}
+            <nav className={`fixed w-full z-50 top-0 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-sm py-2' : 'bg-transparent py-6'}`}>
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div className="flex justify-between items-center">
+                        {/* Logo */}
+                        <div className="flex items-center gap-2 cursor-pointer">
+                            <div className="w-10 h-10 bg-gradient-to-tr from-sky-400 to-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-sky-400/30">
+                                <Sparkles size={20} fill="currentColor" />
+                            </div>
+                            <span className="font-bold text-xl text-slate-800 tracking-tight">
+                                Tunas<span className="text-sky-500">Hebat</span>
+                            </span>
+                        </div>
+
+                        {/* Menu Desktop */}
+                        <div className="hidden md:flex items-center space-x-8">
+                            <a href="#home" className="text-slate-600 hover:text-sky-600 font-medium transition">Beranda</a>
+                            <a href="#features" className="text-slate-600 hover:text-sky-600 font-medium transition">7 Kebiasaan</a>
+                            <a href="#role" className="text-slate-600 hover:text-sky-600 font-medium transition">Masuk</a>
+                        </div>
+
+                        {/* CTA Button */}
+                        <div className="hidden md:block">
+                            <Button asChild className="bg-sky-500 hover:bg-sky-600 text-white rounded-full px-6 shadow-lg shadow-sky-500/30 transition-transform hover:-translate-y-0.5">
+                                <a href="#role">Mulai Sekarang</a>
+                            </Button>
+                        </div>
                     </div>
+                </div>
+            </nav>
 
-                    <div className="mt-16">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                            <a
-                                href="https://laravel.com/docs"
-                                className="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500"
-                            >
+            {/* --- HERO SECTION --- */}
+            <section id="home" className="relative pt-32 pb-20 lg:pt-48 lg:pb-32">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        
+                        {/* Left Content */}
+                        <motion.div 
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="space-y-8"
+                        >
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-sky-100 shadow-sm">
+                                <span className="relative flex h-2 w-2">
+                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                </span>
+                                <span className="text-sm font-semibold text-sky-600">Platform Jurnal Karakter Siswa</span>
+                            </div>
+                            
+                            <h1 className="text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.15]">
+                                Membangun <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-600">Generasi Emas</span> Indonesia
+                            </h1>
+                            
+                            <p className="text-lg text-slate-500 leading-relaxed max-w-xl">
+                                Aplikasi monitoring harian yang menghubungkan Murid, Guru, dan Orang Tua untuk membentuk 7 kebiasaan hebat sejak dini.
+                            </p>
+
+                            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                                <Button asChild className="h-14 px-8 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-base font-bold shadow-xl shadow-slate-900/20">
+                                    <a href="#role">
+                                        Mulai Jurnal <ArrowRight className="ml-2 w-5 h-5" />
+                                    </a>
+                                </Button>
+                                <Button asChild variant="outline" className="h-14 px-8 bg-white border-slate-200 text-slate-700 hover:bg-sky-50 hover:text-sky-600 rounded-xl text-base font-bold">
+                                    <a href="#features">
+                                        <PlayCircle className="mr-2 w-6 h-6 text-sky-500" />
+                                        Pelajari Kebiasaan
+                                    </a>
+                                </Button>
+                            </div>
+                            
+                            <div className="flex items-center gap-8 pt-4 border-t border-slate-200/60">
                                 <div>
-                                    <div className="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="1.5"
-                                            className="w-7 h-7 stroke-red-500"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
-                                            />
-                                        </svg>
-                                    </div>
-
-                                    <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
-                                        Documentation
-                                    </h2>
-
-                                    <p className="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                        Laravel has wonderful documentation covering every aspect of the framework.
-                                        Whether you are a newcomer or have prior experience with Laravel, we recommend
-                                        reading our documentation from beginning to end.
-                                    </p>
+                                    <p className="text-2xl font-bold text-sky-600">10k+</p>
+                                    <p className="text-xs text-slate-500 uppercase tracking-wide">Siswa Aktif</p>
                                 </div>
-
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    className="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                                    />
-                                </svg>
-                            </a>
-
-                            <a
-                                href="https://laracasts.com"
-                                className="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500"
-                            >
                                 <div>
-                                    <div className="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="1.5"
-                                            className="w-7 h-7 stroke-red-500"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
-                                            />
-                                        </svg>
-                                    </div>
-
-                                    <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
-                                        Laracasts
-                                    </h2>
-
-                                    <p className="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                        Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript
-                                        development. Check them out, see for yourself, and massively level up your
-                                        development skills in the process.
-                                    </p>
-                                </div>
-
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    className="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                                    />
-                                </svg>
-                            </a>
-
-                            <a
-                                href="https://laravel-news.com"
-                                className="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500"
-                            >
-                                <div>
-                                    <div className="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="1.5"
-                                            className="w-7 h-7 stroke-red-500"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"
-                                            />
-                                        </svg>
-                                    </div>
-
-                                    <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
-                                        Laravel News
-                                    </h2>
-
-                                    <p className="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                        Laravel News is a community driven portal and newsletter aggregating all of the
-                                        latest and most important news in the Laravel ecosystem, including new package
-                                        releases and tutorials.
-                                    </p>
-                                </div>
-
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    className="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                                    />
-                                </svg>
-                            </a>
-
-                            <div className="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                                <div>
-                                    <div className="h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            strokeWidth="1.5"
-                                            className="w-7 h-7 stroke-red-500"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64"
-                                            />
-                                        </svg>
-                                    </div>
-
-                                    <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
-                                        Vibrant Ecosystem
-                                    </h2>
-
-                                    <p className="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                        Laravel's robust library of first-party tools and libraries, such as{' '}
-                                        <a
-                                            href="https://forge.laravel.com"
-                                            className="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                                        >
-                                            Forge
-                                        </a>
-                                        ,{' '}
-                                        <a
-                                            href="https://vapor.laravel.com"
-                                            className="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                                        >
-                                            Vapor
-                                        </a>
-                                        ,{' '}
-                                        <a
-                                            href="https://nova.laravel.com"
-                                            className="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                                        >
-                                            Nova
-                                        </a>
-                                        , and{' '}
-                                        <a
-                                            href="https://envoyer.io"
-                                            className="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                                        >
-                                            Envoyer
-                                        </a>{' '}
-                                        help you take your projects to the next level. Pair them with powerful open
-                                        source libraries like{' '}
-                                        <a
-                                            href="https://laravel.com/docs/billing"
-                                            className="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                                        >
-                                            Cashier
-                                        </a>
-                                        ,{' '}
-                                        <a
-                                            href="https://laravel.com/docs/dusk"
-                                            className="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                                        >
-                                            Dusk
-                                        </a>
-                                        ,{' '}
-                                        <a
-                                            href="https://laravel.com/docs/broadcasting"
-                                            className="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                                        >
-                                            Echo
-                                        </a>
-                                        ,{' '}
-                                        <a
-                                            href="https://laravel.com/docs/horizon"
-                                            className="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                                        >
-                                            Horizon
-                                        </a>
-                                        ,{' '}
-                                        <a
-                                            href="https://laravel.com/docs/sanctum"
-                                            className="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                                        >
-                                            Sanctum
-                                        </a>
-                                        ,{' '}
-                                        <a
-                                            href="https://laravel.com/docs/telescope"
-                                            className="underline hover:text-gray-700 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                                        >
-                                            Telescope
-                                        </a>
-                                        , and more.
-                                    </p>
+                                    <p className="text-2xl font-bold text-sky-600">500+</p>
+                                    <p className="text-xs text-slate-500 uppercase tracking-wide">Sekolah</p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
 
-                    <div className="flex justify-center mt-16 px-6 sm:items-center sm:justify-between">
-                        <div className="text-center text-sm sm:text-start">&nbsp;</div>
+                        {/* Right Content (Floating Phone Mockup) */}
+                        <div className="relative lg:h-[600px] flex items-center justify-center">
+                            <motion.div 
+                                animate={{ y: [0, -20, 0] }}
+                                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+                                className="relative w-full max-w-md aspect-[4/5] bg-white rounded-[2.5rem] shadow-2xl border-8 border-white overflow-hidden ring-1 ring-slate-900/5"
+                            >
+                                {/* Mockup Header */}
+                                <div className="h-32 bg-gradient-to-b from-sky-500 to-sky-400 p-6 flex flex-col justify-between text-white">
+                                    <div className="flex justify-between items-center">
+                                        <Menu className="w-6 h-6" />
+                                        <Bell className="w-6 h-6" />
+                                    </div>
+                                    <div>
+                                        <p className="text-sky-100 text-sm">Selamat Pagi,</p>
+                                        <p className="font-bold text-2xl">Budi Santoso</p>
+                                    </div>
+                                </div>
+                                
+                                {/* Mockup Body */}
+                                <div className="p-6 space-y-4">
+                                    {/* Progress Card */}
+                                    <div className="bg-sky-50 p-4 rounded-2xl flex items-center gap-4">
+                                        <div className="w-12 h-12 bg-sky-500 rounded-full flex items-center justify-center text-white">
+                                            <PieChart className="w-6 h-6" />
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-slate-800">Progress Hari Ini</p>
+                                            <div className="w-32 h-2 bg-sky-200 rounded-full mt-1">
+                                                <div className="w-3/4 h-full bg-sky-500 rounded-full"></div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                        <div className="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-end sm:ms-0">
-                            Laravel v{laravelVersion} (PHP v{phpVersion})
+                                    {/* Task List */}
+                                    <div className="space-y-3">
+                                        <div className="flex items-center justify-between p-3 border border-slate-100 rounded-xl shadow-sm">
+                                            <div className="flex items-center gap-3">
+                                                <div className="p-2 bg-yellow-100 text-yellow-600 rounded-lg"><Sun size={18} /></div>
+                                                <span className="font-semibold text-sm">Bangun Pagi</span>
+                                            </div>
+                                            <CheckCircle2 className="text-green-500 w-5 h-5" fill="currentColor" color="white" />
+                                        </div>
+                                        <div className="flex items-center justify-between p-3 border border-slate-100 rounded-xl shadow-sm">
+                                            <div className="flex items-center gap-3">
+                                                <div className="p-2 bg-emerald-100 text-emerald-600 rounded-lg"><HeartHandshake size={18} /></div>
+                                                <span className="font-semibold text-sm">Beribadah</span>
+                                            </div>
+                                            <CheckCircle2 className="text-green-500 w-5 h-5" fill="currentColor" color="white" />
+                                        </div>
+                                        <div className="flex items-center justify-between p-3 border border-slate-100 rounded-xl shadow-sm opacity-60">
+                                            <div className="flex items-center gap-3">
+                                                <div className="p-2 bg-red-100 text-red-600 rounded-lg"><Activity size={18} /></div>
+                                                <span className="font-semibold text-sm">Berolahraga</span>
+                                            </div>
+                                            <div className="px-3 py-1 bg-slate-100 rounded-full text-[10px] font-bold text-slate-400">Belum</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Floating Badge */}
+                                <motion.div 
+                                    animate={{ scale: [1, 1.1, 1] }}
+                                    transition={{ repeat: Infinity, duration: 2 }}
+                                    className="absolute -bottom-5 -left-5 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-4 z-10"
+                                >
+                                    <div className="bg-green-100 p-3 rounded-full text-green-600">
+                                        <Sparkles className="w-6 h-6" fill="currentColor" />
+                                    </div>
+                                    <div>
+                                        <p className="font-bold text-slate-800">Hebat!</p>
+                                        <p className="text-xs text-slate-500">Streak 5 Hari</p>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <style>{`
-                .bg-dots-darker {
-                    background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E");
-                }
-                @media (prefers-color-scheme: dark) {
-                    .dark\\:bg-dots-lighter {
-                        background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E");
-                    }
-                }
-            `}</style>
-        </>
+            {/* --- ROLE SELECTION SECTION --- */}
+            <section id="role" className="py-20 relative">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div className="text-center max-w-2xl mx-auto mb-16">
+                        <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Siapa Kamu?</h2>
+                        <p className="text-slate-500">Pilih peranmu untuk masuk ke dasbor yang disesuaikan dengan kebutuhanmu.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {/* Card Murid */}
+                        <Link href="/login" className="group relative bg-white rounded-3xl p-8 border border-slate-100 hover:border-sky-300 shadow-lg shadow-slate-200/50 hover:shadow-sky-500/20 transition-all duration-300 hover:-translate-y-2">
+                            <div className="absolute top-0 left-0 w-full h-2 bg-sky-500 rounded-t-3xl"></div>
+                            <div className="w-16 h-16 bg-sky-50 rounded-2xl flex items-center justify-center text-sky-500 mb-6 group-hover:scale-110 transition duration-300">
+                                <GraduationCap className="w-8 h-8" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-800 mb-2">Murid</h3>
+                            <p className="text-slate-500 text-sm mb-6">Isi jurnal harian, lihat grafik progress, dan kumpulkan lencana prestasi.</p>
+                            <div className="w-full py-3 rounded-xl bg-slate-50 text-slate-700 font-bold group-hover:bg-sky-500 group-hover:text-white transition-colors flex items-center justify-center gap-2">
+                                Masuk Murid <ArrowRight className="w-4 h-4" />
+                            </div>
+                        </Link>
+
+                        {/* Card Guru */}
+                        <Link href="/login" className="group relative bg-white rounded-3xl p-8 border border-slate-100 hover:border-blue-300 shadow-lg shadow-slate-200/50 hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-2">
+                            <div className="absolute top-0 left-0 w-full h-2 bg-blue-600 rounded-t-3xl"></div>
+                            <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:scale-110 transition duration-300">
+                                <Presentation className="w-8 h-8" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-800 mb-2">Guru</h3>
+                            <p className="text-slate-500 text-sm mb-6">Pantau aktivitas kelas, berikan feedback, dan validasi kebiasaan siswa.</p>
+                            <div className="w-full py-3 rounded-xl bg-slate-50 text-slate-700 font-bold group-hover:bg-blue-600 group-hover:text-white transition-colors flex items-center justify-center gap-2">
+                                Masuk Guru <ArrowRight className="w-4 h-4" />
+                            </div>
+                        </Link>
+
+                        {/* Card Orang Tua */}
+                        <Link href="/login" className="group relative bg-white rounded-3xl p-8 border border-slate-100 hover:border-indigo-300 shadow-lg shadow-slate-200/50 hover:shadow-indigo-500/20 transition-all duration-300 hover:-translate-y-2">
+                            <div className="absolute top-0 left-0 w-full h-2 bg-indigo-400 rounded-t-3xl"></div>
+                            <div className="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-400 mb-6 group-hover:scale-110 transition duration-300">
+                                <UserCheck className="w-8 h-8" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-800 mb-2">Orang Tua</h3>
+                            <p className="text-slate-500 text-sm mb-6">Dukungan dari rumah, lihat perkembangan anak, dan komunikasi dengan guru.</p>
+                            <div className="w-full py-3 rounded-xl bg-slate-50 text-slate-700 font-bold group-hover:bg-indigo-400 group-hover:text-white transition-colors flex items-center justify-center gap-2">
+                                Masuk Orang Tua <ArrowRight className="w-4 h-4" />
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- FEATURES GRID (7 HABITS) --- */}
+            <section id="features" className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                        <div className="max-w-xl">
+                            <span className="text-sky-500 font-bold tracking-wider uppercase text-sm">Kurikulum Karakter</span>
+                            <h2 className="text-3xl font-bold text-slate-900 mt-2">7 Kebiasaan Utama</h2>
+                            <p className="text-slate-500 mt-2">Fondasi yang membangun keseimbangan fisik, mental, dan spiritual.</p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                        {habits.map((habit, index) => (
+                            <div key={index} className="p-4 rounded-2xl bg-sky-50/50 border border-transparent hover:border-sky-200 hover:bg-white text-center transition group cursor-default">
+                                <div className="w-12 h-12 mx-auto bg-white rounded-full shadow-sm flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                                    {habit.icon}
+                                </div>
+                                <h4 className="font-bold text-slate-700 text-sm">{habit.title}</h4>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* --- FOOTER --- */}
+            <footer className="bg-white border-t border-slate-100 py-12">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-sky-500 rounded-lg flex items-center justify-center text-white">
+                            <Sparkles size={16} fill="currentColor" />
+                        </div>
+                        <span className="font-bold text-slate-700">TunasHebat</span>
+                    </div>
+                    <p className="text-slate-400 text-sm">© 2025 Education Platform Indonesia. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
     );
 }
