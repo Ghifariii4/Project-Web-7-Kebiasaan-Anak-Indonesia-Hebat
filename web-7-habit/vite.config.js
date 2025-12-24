@@ -10,4 +10,13 @@ export default defineConfig({
         }),
         react(),
     ],
+    server: {
+        host: '0.0.0.0', // Biar bisa diakses dari luar container
+        hmr: {
+            host: 'localhost', // Kasih tau browser connect ke localhost
+        },
+        watch: {
+            usePolling: true, // PENTING: Paksa cek file di Windows
+        },
+    },
 });
